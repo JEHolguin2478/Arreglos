@@ -1,0 +1,23 @@
+<?php
+
+$colores = array("amarillo","rojo","azul","verde");
+
+$colores[]="negro";
+
+//print_r($colores);
+
+$eliminarColor = "rojo";
+$llave = array_search($eliminarColor,$colores);
+
+if($llave!==false){
+    unset($colores[$llave]);
+}
+//print_r($colores);
+
+$colores[1]="morado";
+//print_r($colores);
+
+$colores[3]="marron";
+print_r($colores);
+
+?> 
