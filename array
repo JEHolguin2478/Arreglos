@@ -1,0 +1,19 @@
+<?php
+//anadir un registro a un arreglo
+	$colores  array("amarillo","rojo","azul","verde");
+
+    $colores[]="negro";
+
+    print_r(value: $colores);
+
+    //eliminar un registro de un arreglo
+
+    $eliminarColor = "rojo";
+    $llave = array_search(needle: $eliminarColor,haystack: $colores);
+
+    if($llave!==false){
+        unset($colores[$llave]);
+    }
+    print_r(value: $colores);
+	
+?>
