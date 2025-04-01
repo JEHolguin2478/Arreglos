@@ -1,0 +1,20 @@
+<?php
+
+class Nodo{
+
+    public $dato;
+
+    public $siguiente;
+
+    public function construct($dato): void {
+       $this ->dato = $dato;
+       $this ->siguiente = null;
+    }
+}
+
+public $cabeza;
+class ListaEnlazada(){
+    public function __construct(){
+        $this -> cireza = null; 
+    }
+}
