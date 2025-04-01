@@ -1,0 +1,42 @@
+pilas
+<?php
+
+$pila = array();
+
+array_push(array: &$pila, values: "elemento 1");
+array_push(array: &$pila, values: "elemento 2");
+array_push(array: &$pila, values: "elemento 3");
+array_push(array: &$pila, values: "elemento 4");
+array_push(array: &$pila, values: "elemento 5");
+array_push(array: &$pila, values: "elemento 6");
+array_push(array: &$pila, values: "elemento 7");
+array_push(array: &$pila, values: "elemento 8");
+array_push(array: &$pila, values: "elemento 9");
+
+$elemento = array_pop(array: &$pila);
+
+echo "Ultimo elemento ingresado a la pila es el ".$cliente;
+
+
+?>
+colas
+<?php
+
+$pila = array();
+
+array_push(array: &$pila, values: "elemento 1");
+array_push(array: &$pila, values: "elemento 2");
+array_push(array: &$pila, values: "elemento 3");
+array_push(array: &$pila, values: "elemento 4");
+array_push(array: &$pila, values: "elemento 5");
+array_push(array: &$pila, values: "elemento 6");
+array_push(array: &$pila, values: "elemento 7");
+array_push(array: &$pila, values: "elemento 8");
+array_push(array: &$pila, values: "elemento 9");
+
+$elemento = array_pop(array: &$pila);
+
+echo "Ultimo elemento ingresado a la pila es el ".$elemento;
+
+
+?>
