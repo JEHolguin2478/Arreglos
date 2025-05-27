@@ -1,0 +1,174 @@
+<?php
+
+// 1. Arreglo – Registro de líneas de transporte interno (carritos o rutas de carga)
+$lineas = [
+    ["codigo" => "A", "nombre" => "Línea A - Herramientas", "capacidad" => 50],
+    ["codigo" => "B", "nombre" => "Línea B - Electricidad", "capacidad" => 40],
+    ["codigo" => "C", "nombre" => "Línea C - Pinturas", "capacidad" => 30]
+];
+
+echo "=== Inventario del almacén ===\n";
+foreach ($lineas as $linea) {
+    echo "{$linea['codigo']} - {$linea['nombre']} (Capacidad: {$linea['capacidad']})\n";
+}
+echo "\n";
+
+// 2. Lista Enlazada – Estaciones de carga en una línea
+class Nodo {
+    public $nombre;
+    public $siguiente;
+
+    public function __construct($nombre) {
+        $this->nombre = $nombre;
+        $this->siguiente = null;
+    }
+}
+
+class ListaEnlazada {
+    public $inicio = null;
+
+    public function agregar($nombre) {
+        $nuevo = new Nodo($nombre);
+        if ($this->inicio == null) {
+            $this->inicio = $nuevo;
+        } else {
+            $actual = $this->inicio;
+            while ($actual->siguiente != null) {
+                $actual = $actual->siguiente;
+            }
+            $actual->siguiente = $nuevo;
+        }
+    }
+
+    public function mostrar() {
+        echo "=== Zonas de la tienda ===\n";
+        $actual = $this->inicio;
+        while ($actual != null) {
+            echo "- " . $actual->nombre . "\n";
+            $actual = $actual->siguiente;
+        }
+        echo "\n";
+    }
+}
+
+$estaciones = new ListaEnlazada();
+$estaciones->agregar("Recepción");
+$estaciones->agregar("Zona Herramientas");
+$estaciones->agregar("Zona Clavos");
+$estaciones->agregar("Zona Salida");
+$estaciones->mostrar();
+
+// 3. Pila – Recorrido de un cliente (último producto que agarró)
+class Pila {
+    private $elementos = [];
+
+    public function push($valor) { array_push($this->elementos, $valor); }
+    public function pop() { return array_pop($this->elementos); }
+    public function mostrar() {
+        echo "=== RECORRIDO DEL CLIENTE ===\n";
+        foreach (array_reverse($this->elementos) as $e) {
+            echo "- $e\n";
+        }
+        echo "\n";
+    }
+}
+
+$recorrido = new Pila();
+$recorrido->push("Pasillo 1 - Martillos");
+$recorrido->push("Pasillo 2 - Tornillos");
+$recorrido->push("Pasillo 3 - Cinta adhesiva");
+$recorrido->mostrar();
+
+// 4. Cola – Fila de espera para pagar
+class Cola {
+    private $elementos = [];
+
+    public function enqueue($valor) { array_push($this->elementos, $valor); }
+    public function dequeue() { return array_shift($this->elementos); }
+    public function mostrar() {
+        echo "=== FILA DE ESPERA EN CAJA ===\n";
+        foreach ($this->elementos as $e) {
+            echo "- $e\n";
+        }
+        echo "\n";
+    }
+}
+
+$fila = new Cola();
+$fila->enqueue("Cliente 1",);
+$fila->enqueue("Cliente 2",);
+$fila->enqueue("Cliente 3",);
+$fila->mostrar();
+
+// 5. Árbol – Rutas recomendadas dentro de la ferretería
+class NodoArbol {
+    public $valor;
+    public $izquierda;
+    public $derecha;
+
+    public function __construct($valor) {
+        $this->valor = $valor;
+        $this->izquierda = null;
+        $this->derecha = null;
+    }
+}
+
+function recorrerArbol($nodo) {
+    if ($nodo != null) {
+        echo "- " . $nodo->valor . "\n";
+        recorrerArbol($nodo->izquierda);
+        recorrerArbol($nodo->derecha);
+    }
+}
+
+$raiz = new NodoArbol("Entrada Principal");
+$raiz->izquierda = new NodoArbol("Pasillo A - Herramientas");
+$raiz->derecha = new NodoArbol("Pasillo B - Eléctrico");
+$raiz->izquierda->izquierda = new NodoArbol("Sección Martillos");
+$raiz->izquierda->derecha = new NodoArbol("Sección Destornilladores");
+$raiz->derecha->izquierda = new NodoArbol("Sección Cables");
+$raiz->derecha->derecha = new NodoArbol("Sección Bombillas");
+
+echo "=== Pasillos de la Tienda ===\n";
+recorrerArbol($raiz);
+echo "\n";
+
+// 6. Grafo – Red de secciones interconectadas
+class Grafo {
+    private $adyacencia = [];
+
+    public function agregarVertice($nombre) {
+        if (!isset($this->adyacencia[$nombre])) {
+            $this->adyacencia[$nombre] = [];
+        }
+    }
+
+    public function agregarArista($origen, $destino) {
+        $this->adyacencia[$origen][] = $destino;
+    }
+
+    public function mostrarGrafo() {
+        echo "=== CONEXIONES ENTRE SECCIONES ===\n";
+        foreach ($this->adyacencia as $origen => $destinos) {
+            echo "- $origen se conecta con: " . implode(", ", $destinos) . "\n";
+        }
+        echo "\n";
+    }
+}
+
+$grafo = new Grafo();
+$grafo->agregarVertice("Entrada");
+$grafo->agregarVertice("Herramientas");
+$grafo->agregarVertice("Electricidad");
+$grafo->agregarVertice("Pinturas");
+$grafo->agregarVertice("Caja");
+
+$grafo->agregarArista("Entrada", "Herramientas");
+$grafo->agregarArista("Entrada", "Electricidad");
+$grafo->agregarArista("Herramientas", "Pinturas");
+$grafo->agregarArista("Electricidad", "Caja");
+$grafo->agregarArista("Pinturas","cajas");
+
+$grafo->mostrarGrafo();
+
+?>
